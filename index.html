@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="">
-
+<!-- grid data example: https://bl.ocks.org/cagrimmett/07f8c8daea00946b9e704e3efcbd5739
+  http://bl.ocks.org/eesur/raw/3fc83ddc4c060e6bd43e/?raw=true
+-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SEGT</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
-  <script src="sketch.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="sketch.js" type="text/javascript" async></script>
   <!-- <script src="../addons/p5.sound.js"></script> -->
 </head>
 
@@ -36,14 +38,11 @@
           </tr>
         </table>
           
-          
-        
       </div>
     </nav>
     <article>
       <h2>Arena</h2>
-      <div id = "p5sketch">
-        <!-- p5 instance will be created here -->
+      <div id="d3sketch">
       </div>
     </article>
   </section>
