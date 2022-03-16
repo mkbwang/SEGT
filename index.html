@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html lang="">
-
+<!-- grid data example: https://bl.ocks.org/cagrimmett/07f8c8daea00946b9e704e3efcbd5739
+  http://bl.ocks.org/eesur/raw/3fc83ddc4c060e6bd43e/?raw=true
+-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>p5.js example</title>
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+  <title>SEGT</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="sketch.js" type="text/javascript" async></script>
   <!-- <script src="../addons/p5.sound.js"></script> -->
-  <script src="sketch.js"></script>
 </head>
 
 <body>
-  <main>
-  </main>
+  <h1>Spatial Evolutionary Game Theory</h1>
+  <section>
+    <nav>
+      <h2>Payoff Matrix</h2>
+      <div id="payoffmatrix">
+        <table class="crosstable">
+        <tr > <th class="crossth"> </th> <th class="crossth">C </th> <th class="crossth"> D</th> </tr>
+        <tr> <th class="crossth">C</th> <td contenteditable="true" class="crosstd">1</td> <td contenteditable="true" class="crosstd">0</td> </tr>
+        <tr> <th class="crossth">C</th> <td contenteditable="true" class="crosstd">1</td> <td contenteditable="true" class="crosstd">0</td> </tr>
+        </table>
+        <table class="controltable">
+          <tr> 
+            
+            <th class="controlth">
+              <input type="checkbox" id="play-pause" /><label for="play-pause" id="play-pause-label" class="win-button"></label> 
+            </th>
+
+            <th class="controlth">
+              <button type="button" class="resetbutton">Reset</button>
+            </th>
+
+          </tr>
+        </table>
+          
+      </div>
+    </nav>
+    <article>
+      <h2>Arena</h2>
+      <div id="d3sketch">
+      </div>
+    </article>
+  </section>
 </body>
 
 </html>

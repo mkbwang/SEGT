@@ -1,0 +1,78 @@
+/* html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+} */
+
+
+.crosstable{
+    border: 1px solid black;
+    width: 90%;
+  }
+.crossth, .crosstd {
+    border: 1px solid black;
+    width: 30%;
+    text-align: center; 
+    vertical-align: middle;
+  }
+
+.controltable{
+    border: 1px transparent;
+    width: 90%;
+}
+.controlth {
+    border: 1px transparent;
+    width: 45%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+nav{
+    float: left;
+    width: 30%;
+}
+
+article{
+    float: left;
+    width: 70%;
+}
+
+section::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+#play-pause {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+#play-pause:checked + #play-pause-label::after {
+    content: '❙❙';
+    font-family: sans-serif;
+    font-weight: 60;
+    font-size: 2rem;
+}
+
+#play-pause-label::after {
+    content: '►';
+    font-family: sans-serif;
+    font-weight: 80;
+    font-size: 3rem;
+}
+
+.resetbutton{
+    font-size: 16px;
+  margin: 4px 2px;
+}
+  
