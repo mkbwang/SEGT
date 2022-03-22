@@ -5,11 +5,11 @@ function gridData() {
 	let width = 20;
 	let height = 20;
 	let click = 0;
-	
+
 	// iterate for rows	
 	for (let row = 0; row < 20; row++) {
-		data.push( new Array() );
-		
+		data.push(new Array());
+
 		// iterate for cells/columns inside rows
 		for (var column = 0; column < 20; column++) {
 			data[row].push({
@@ -25,37 +25,47 @@ function gridData() {
 		// reset the x position after a row is complete
 		xpos = 1;
 		// increment the y position for the next row. Move it down 50 (height variable)
-		ypos += height;	
+		ypos += height;
 	}
 	return data;
 }
 
-let mygrid = gridData();	
+let mygrid = gridData();
 // I like to log the data to the console for quick debugging
 // console.log(mygrid);
 
 let grid = d3.select("#d3sketch")
 	.append("svg")
-	.attr("width","510px")
-	.attr("height","510px");
-	
+	.attr("width", "510px")
+	.attr("height", "510px");
+
 let row = grid.selectAll(".row")
 	.data(mygrid)
 	.enter().append("g")
 	.attr("class", "row");
-	
+
 let column = row.selectAll(".square")
-	.data(function(d) { return d; })
+	.data(function (d) { return d; })
 	.enter().append("rect")
-	.attr("class","square")
-	.attr("x", function(d) { return d.x; })
-	.attr("y", function(d) { return d.y; })
-	.attr("width", function(d) { return d.width; })
-	.attr("height", function(d) { return d.height; })
+	.attr("class", "square")
+	.attr("x", function (d) { return d.x; })
+	.attr("y", function (d) { return d.y; })
+	.attr("width", function (d) { return d.width; })
+	.attr("height", function (d) { return d.height; })
 	.style("fill", "#F56C4E")
 	.style("stroke", "#222")
-	.on('click', function(d) {
-       d.click ++;
-       if ((d.click)%2 == 0 ) { d3.select(this).style("fill","#F56C4E"); }
-	   if ((d.click)%2 == 1 ) { d3.select(this).style("fill","#2C93E8"); }
-    });
+	.on('click', function (d) {
+		d.click++;
+		if ((d.click) % 2 == 0) { d3.select(this).style("fill", "#F56C4E"); }
+		if ((d.click) % 2 == 1) { d3.select(this).style("fill", "#2C93E8"); }
+	});
+
+let resetButton = d3.select("#resetbutton")
+	.on('click', function () {
+		for (let row = 0; row < 20; row++) {
+			for (let col = 0; col < 20; col++) {
+				mygrid[row][col].click = 0;
+			}
+		}
+		row.selectAll(".square").style("fill", "#F56C4E")
+	});
