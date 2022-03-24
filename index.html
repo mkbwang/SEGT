@@ -3,6 +3,7 @@
 <!-- grid data example: https://bl.ocks.org/cagrimmett/07f8c8daea00946b9e704e3efcbd5739
   http://bl.ocks.org/eesur/raw/3fc83ddc4c060e6bd43e/?raw=true
 -->
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,24 +21,37 @@
       <h2>Payoff Matrix</h2>
       <div id="payoffmatrix">
         <table class="crosstable">
-        <tr > <th class="crossth"> </th> <th class="crossth">C </th> <th class="crossth"> D</th> </tr>
-        <tr> <th class="crossth">C</th> <td contenteditable="true" class="crosstd">1</td> <td contenteditable="true" class="crosstd">0</td> </tr>
-        <tr> <th class="crossth">C</th> <td contenteditable="true" class="crosstd">1</td> <td contenteditable="true" class="crosstd">0</td> </tr>
+          <tr>
+            <th class="crossth"> </th>
+            <th class="crossth">C </th>
+            <th class="crossth"> D</th>
+          </tr>
+          <tr>
+            <th class="crossth">C</th>
+            <td contenteditable="true" class="crosstd">1</td>
+            <td contenteditable="true" class="crosstd">0</td>
+          </tr>
+          <tr>
+            <th class="crossth">C</th>
+            <td contenteditable="true" class="crosstd">1</td>
+            <td contenteditable="true" class="crosstd">0</td>
+          </tr>
         </table>
         <table class="controltable">
-          <tr> 
-            
+          <tr>
+
             <th class="controlth">
-              <input type="checkbox" id="play-pause" /><label for="play-pause" id="play-pause-label" class="win-button"></label> 
+              <input type="checkbox" id="play-pause" /><label for="play-pause" id="play-pause-label"
+                class="win-button"></label>
             </th>
 
             <th class="controlth">
-              <button type="button" class="resetbutton">Reset</button>
+              <button type="button" id="resetbutton">Reset</button>
             </th>
 
           </tr>
         </table>
-          
+
       </div>
     </nav>
     <article>
