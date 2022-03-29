@@ -52,12 +52,13 @@ let column = row.selectAll(".square")
 	.attr("y", function (d) { return d.y; })
 	.attr("width", function (d) { return d.width; })
 	.attr("height", function (d) { return d.height; })
-	.style("fill", "#F56C4E")
+	.style("fill", "#ffc299")
 	.style("stroke", "#222")
 	.on('click', function (d) {
 		d.click++;
-		if ((d.click) % 2 == 0) { d3.select(this).style("fill", "#F56C4E"); }
-		if ((d.click) % 2 == 1) { d3.select(this).style("fill", "#2C93E8"); }
+		if ((d.click) % 2 == 0) { d3.select(this).style("fill", "#ffc299"); } // color for C
+		if ((d.click) % 2 == 1) { d3.select(this).style("fill", "#8080ff"); } // color for D
+		d.click = (d.click) % 2;
 	});
 
 let resetButton = d3.select("#resetbutton")
@@ -67,5 +68,54 @@ let resetButton = d3.select("#resetbutton")
 				mygrid[row][col].click = 0;
 			}
 		}
-		row.selectAll(".square").style("fill", "#F56C4E")
+		row.selectAll(".square").style("fill", "#ff8533")
 	});
+
+var iter = 0;
+
+function animeLoop() {
+	setTimeout(
+		function () {
+			console.log("iteration ", iter);
+			iter++;
+			for (let row = 0; row < 20; row++) {
+				for (let col = 0; col < 20; col++) {
+					let up = 0;
+					let down = 0;
+					let left = 0;
+					let right = 0;
+					if (row > 0) {
+						up = mygrid[row - 1][col].click;
+					}
+					if (row < 19) {
+						down = mygrid[row + 1][col].click;
+					}
+					if (col > 0) {
+						left = mygrid[row][col - 1].click;
+					}
+					if (col < 19) {
+						right = mygrid[row][col + 1].click;
+					}
+					let summing = up + down + right + left;
+					if (summing >= 2) {
+						mygrid[row][col].click = 1;
+						column._groups[row][col].style.fill = "#8080ff";
+					} else {
+						mygrid[row][col].click = 0;
+						column._groups[row][col].style.fill = "#ffc299"
+					}
+				}
+			}
+			if (iter < 10) {
+				animeLoop();
+			}
+		}, 1000
+	);
+}
+
+let playButton = d3.select("#play-pause")
+	.on('click', function () {
+		iter = 0;
+		animeLoop();
+	}
+	);
