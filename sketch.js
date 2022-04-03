@@ -68,7 +68,7 @@ let resetButton = d3.select("#resetbutton")
 				mygrid[row][col].click = 0;
 			}
 		}
-		row.selectAll(".square").style("fill", "#ff8533")
+		row.selectAll(".square").style("fill", "#ffc299")
 	});
 
 var iter = 0;
@@ -76,6 +76,10 @@ var iter = 0;
 function animeLoop() {
 	setTimeout(
 		function () {
+			let newData = new Array();
+			for (let i = 0; i < 20; i++) {
+				newData.push(new Array(20));
+			}
 			console.log("iteration ", iter);
 			iter++;
 			for (let row = 0; row < 20; row++) {
@@ -97,11 +101,21 @@ function animeLoop() {
 						right = mygrid[row][col + 1].click;
 					}
 					let summing = up + down + right + left;
-					if (summing >= 2) {
-						mygrid[row][col].click = 1;
+					if (summing >= 1) {
+						newData[row][col] = 1;
+						// column._groups[row][col].style.fill = "#8080ff";
+					} else {
+						newData[row][col] = 0;
+						// column._groups[row][col].style.fill = "#ffc299"
+					}
+				}
+			}
+			for (let row = 0; row < 20; row++) {
+				for (let col = 0; col < 20; col++) {
+					mygrid[row][col].click = newData[row][col];
+					if (mygrid[row][col].click == 1) {
 						column._groups[row][col].style.fill = "#8080ff";
 					} else {
-						mygrid[row][col].click = 0;
 						column._groups[row][col].style.fill = "#ffc299"
 					}
 				}
