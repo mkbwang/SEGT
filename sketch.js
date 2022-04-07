@@ -57,11 +57,11 @@ let column = row.selectAll(".square")
 	.attr("y", function (d) { return d.y; })
 	.attr("width", function (d) { return d.width; })
 	.attr("height", function (d) { return d.height; })
-	.style("fill", "#ffc299")
+	.style("fill", "#fca973")
 	.style("stroke", "#222")
 	.on('click', function (d) {
 		d.click++;
-		if ((d.click) % 2 == 0) { d3.select(this).style("fill", "#ffc299"); } // color for C
+		if ((d.click) % 2 == 0) { d3.select(this).style("fill", "#fca973"); } // color for C
 		if ((d.click) % 2 == 1) { d3.select(this).style("fill", "#8080ff"); } // color for D
 		d.click = (d.click) % 2;
 	});
@@ -79,7 +79,7 @@ let resetButton = d3.select("#resetbutton")
 			}
 		}
 		playAnime = false;
-		row.selectAll(".square").style("fill", "#ffc299");
+		row.selectAll(".square").style("fill", "#fca973");
 	});
 
 var iter = 0;
@@ -180,11 +180,21 @@ function animeLoop() {
 			}
 			for (let row = 0; row < gridSize; row++) {
 				for (let col = 0; col < gridSize; col++) {
-					mygrid[row][col].click = newData[row][col];
-					if (mygrid[row][col].click == 1) {
+					if (newData[row][col] == 1 && mygrid[row][col].click != newData[row][col]) {
 						column._groups[row][col].style.fill = "#8080ff";
-					} else {
-						column._groups[row][col].style.fill = "#ffc299"
+						// new type D
+						mygrid[row][col].click = 1;
+					}
+					else if (newData[row][col] == 1) {
+						column._groups[row][col].style.fill = "#cccfff";
+					}
+					else if (newData[row][col] == 0 && mygrid[row][col].click != newData[row][col]) {
+						column._groups[row][col].style.fill = "#fca973";
+						// new type C
+						mygrid[row][col].click = 0;
+					}
+					else {
+						column._groups[row][col].style.fill = "#fbe1cd"
 					}
 				}
 			}
