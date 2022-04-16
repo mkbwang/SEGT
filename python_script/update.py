@@ -10,7 +10,7 @@ def payoff(pop_status, pmat):
     row_count, col_count = pop_status.shape
     # add symmetric padding
     pop_status_mirrored = np.pad(pop_status, 1, 'reflect')
-    output_mat = np.zeros((row_count, col_count))
+    output_mat = np.zeros((row_count, col_count)    )
 
     for rowid in np.arange(1, row_count+1):
         for colid in np.arange(1, col_count + 1):
@@ -44,3 +44,17 @@ def update_population(pop_status, payoff_vals):
     return new_pop
 
 
+def evolution(arena, payoffmat, iteration = 7):
+    """
+    arena: initial population distribution
+    payoffmat: payoff matrix
+    iteration: number of iterations to run
+    """
+
+    result = [arena]
+    for i in range(iteration):
+        current_payoff = payoff(arena, payoffmat)
+        arena = update_population(arena, current_payoff)
+        result.append(arena)
+    
+    return result
