@@ -1,4 +1,5 @@
 var gridSize = null;
+var defaultCell = null; // default cell type: cooperator
 function gridData() {
 	let data = new Array();
 	let xpos = 1; //starting xpos and ypos at 1 so the stroke will show when we make the grid below
@@ -9,7 +10,15 @@ function gridData() {
 	if (!gridInput) {
 		gridSize = 20;
 	}
-	let click = 0;
+	if (!defaultCell) {
+		defaultCell = 0; // cooperator
+	}
+	let click = null;
+	if (defaultCell == 0) {
+		click = 0;
+	} else {
+		click = 1;
+	}
 
 	// iterate for rows	
 	for (let row = 0; row < gridSize; row++) {
@@ -35,43 +44,17 @@ function gridData() {
 	return data;
 }
 
-let mygrid = gridData();
-// I like to log the data to the console for quick debugging
-// console.log(mygrid);
-
-let grid = d3.select("#d3sketch")
-	.append("svg")
-	.attr("width", "510px")
-	.attr("height", "510px");
-
-let row = grid.selectAll(".row")
-	.data(mygrid)
-	.enter().append("g")
-	.attr("class", "row");
-
-let column = row.selectAll(".square")
-	.data(function (d) { return d; })
-	.enter().append("rect")
-	.attr("class", "square")
-	.attr("x", function (d) { return d.x; })
-	.attr("y", function (d) { return d.y; })
-	.attr("width", function (d) { return d.width; })
-	.attr("height", function (d) { return d.height; })
-	.style("fill", "#fca973")
-	.style("stroke", "#222")
-	.on('click', function (d) {
-		d.click++;
-		if ((d.click) % 2 == 0) { d3.select(this).style("fill", "#fca973"); } // color for C
-		if ((d.click) % 2 == 1) { d3.select(this).style("fill", "#8080ff"); } // color for D
-		d.click = (d.click) % 2;
-	});
+var mygrid = null;
+var grid = null;
+var row = null;
+var column = null;
 
 var gameMatrix = new Array();
 gameMatrix.push(new Array(2));
 gameMatrix.push(new Array(2));
 var playAnime = false;
 
-let resetButton = d3.select("#resetbutton")
+var resetButton = d3.select("#resetbutton")
 	.on('click', function () {
 		for (let row = 0; row < gridSize; row++) {
 			for (let col = 0; col < gridSize; col++) {
@@ -205,7 +188,7 @@ function animeLoop() {
 	);
 }
 
-let playButton = d3.select("#play-pause")
+var playButton = d3.select("#play-pause")
 	.on('click', function () {
 		gameMatrix[0][0] = parseFloat(document.getElementById("cSurroundedByC").innerText);
 		gameMatrix[0][1] = parseFloat(document.getElementById("cSurroundedByD").innerText);
@@ -216,5 +199,38 @@ let playButton = d3.select("#play-pause")
 		// console.log(gameMatrix);
 		// debugger;
 		animeLoop();
-	}
-	);
+	});
+
+var gridButton = d3.select("#resetgrid")
+	.on('click', function(){
+		grid = null;
+		document.getElementById("d3sketch").innerHTMl = "";
+		gridSize = parseFloat(document.getElementById("gridSize").value);
+		mygrid = gridData();
+		grid = d3.select("#d3sketch")
+			.append("svg")
+			.attr("width", "510px")
+			.attr("height", "510px");
+
+		row = grid.selectAll(".row")
+			.data(mygrid)
+			.enter().append("g")
+			.attr("class", "row");
+
+		column = row.selectAll(".square")
+			.data(function (d) { return d; })
+			.enter().append("rect")
+			.attr("class", "square")
+			.attr("x", function (d) { return d.x; })
+			.attr("y", function (d) { return d.y; })
+			.attr("width", function (d) { return d.width; })
+			.attr("height", function (d) { return d.height; })
+			.style("fill", "#fca973")
+			.style("stroke", "#222")
+			.on('click', function (d) {
+				d.click++;
+				if ((d.click) % 2 == 0) { d3.select(this).style("fill", "#fca973"); } // color for C
+				if ((d.click) % 2 == 1) { d3.select(this).style("fill", "#8080ff"); } // color for D
+				d.click = (d.click) % 2;
+			});
+	});
