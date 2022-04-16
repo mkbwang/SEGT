@@ -33,12 +33,14 @@ def update_population(pop_status, payoff_vals):
     pop_status_mirrored = np.pad(pop_status, 1, 'reflect')
     payoff_vals_mirrored = np.pad(payoff_vals, 1, 'reflect')
 
-    new_pop = np.zeros((row_count, col_count))
+    new_pop = np.zeros((row_count, col_count), dtype=np.uint8)
 
     for rowid in np.arange(1, row_count+1):
         for colid in np.arange(1, col_count + 1):
             neighbourhood = pop_status_mirrored[(rowid - 1):(rowid + 2), (colid - 1):(colid + 2)].flatten()
-            payoffs_neighbours = payoff_vals[(rowid - 1):(rowid + 2), (colid - 1):(colid + 2)].flatten()
+            payoffs_neighbours = payoff_vals_mirrored[(rowid - 1):(rowid + 2), (colid - 1):(colid + 2)].flatten()
             new_pop[rowid - 1, colid - 1] = neighbourhood[np.argmax(payoffs_neighbours)]
         
     return new_pop
+
+
