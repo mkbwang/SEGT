@@ -36,9 +36,11 @@ def export_anime(slides, filename, plot_size = (8, 8), color_map = ['#5953ca', '
     for i in range(len(slides)):
         ims.append((ax.imshow(slides[i], cmap=cmap, norm=norm),))
 
+    fig.tight_layout()
+
     Writer = animation.writers['ffmpeg']
     writer = Writer(fps=int(1000/interval), metadata=dict(artist='Me'), bitrate=1800)
-    ani = animation.ArtistAnimation(fig, ims, interval=interval, repeat_delay=3000,
+    ani = animation.ArtistAnimation(fig, ims, interval=interval, repeat=False,
                                            blit=True)        
 
     ani.save(filename, writer=writer)
