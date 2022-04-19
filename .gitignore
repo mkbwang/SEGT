@@ -1,1 +1,7 @@
 p5/
+venv/
+__pycache__/
+*.png
+*.gif
+*.mp4
+
